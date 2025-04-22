@@ -5,8 +5,10 @@ import { Container, VStack } from '@chakra-ui/react'
 import DefaultLayout from './components/layouts/Default'
 import LineChart from './components/LineChart'
 import SliderInput from './components/SliderInput'
+import ProjectionsSummary from './components/ProjectionsSummary'
 import theme from './theme'
 import { debounce } from 'lodash'
+import { getFutureDate } from './utils/getFutureDate'
 
 const defaultTheme = extendTheme(theme)
 
@@ -44,13 +46,17 @@ function App() {
                 }
 
                 const data = await response.json();
-                
-                // Create labels for the x-axis (year markers every 12 months)
-                const monthLabels = Array.from({ length: 600 }, (_, i) => {
-                    const month = i + 1;
-                    return month % 12 === 0 ? `Year ${month / 12}` : ' ';
-                })
-                
+
+                const projectionsLength = data.projections.length;
+                const amountOfYears = projectionsLength / 12;
+
+                // Create labels for the x-axis - show Today and end date
+                const monthLabels = Array.from({ length: projectionsLength }, (_, i) => {
+                    if (i === 0) return 'Today';
+                    if (i === projectionsLength - 1) return getFutureDate(amountOfYears);
+                    return '';
+                });
+
                 // Update chart data with all monthly projections
                 setChartData({
                     xAxis: monthLabels,
@@ -103,13 +109,13 @@ function App() {
                             unit="%"
                         />
                     </VStack>
-
+                    <ProjectionsSummary 
+                        finalAmount={chartData.yAxis[chartData.yAxis.length - 1]} 
+                        numberOfYears={chartData.yAxis.length / 12}
+                    />
                     <LineChart
-                        title="Savings Over time"
                         xAxisData={chartData.xAxis}
                         yAxisData={chartData.yAxis}
-                        xLabel="Years"
-                        yLabel="Amount"
                     />
                 </Container>
             </DefaultLayout>

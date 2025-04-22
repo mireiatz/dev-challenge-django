@@ -10,7 +10,8 @@ import {
 } from 'chart.js'
 import React from 'react'
 import { Line } from 'react-chartjs-2'
-import theme from '../theme'
+import { Box } from '@chakra-ui/react'
+import { formatCurrency } from '../utils/formatCurrency'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend)
 
@@ -22,54 +23,91 @@ type Props = {
     yLabel?: string
 }
 
-const LineChart = ({ xAxisData, yAxisData, title, xLabel, yLabel }: Props) => {
-    const options = {
-        responsive: true,
-        plugins: {
-            legend: {
+// Create chart options for styling
+const createChartOptions = () => ({
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+        legend: {
+            display: false,
+        },
+        title: {
+            display: false,
+        },
+        tooltip: {
+            callbacks: {
+                label: (context: any) => formatCurrency(context.raw)
+            }
+        }
+    },
+    scales: {
+        y: {
+            grid: {
+                color: 'rgba(0, 0, 0, 0.05)',
+                drawBorder: false,
+            },
+            ticks: {
+                callback: (value: any) => {
+                    if (value === 0) return '';
+                    return formatCurrency(value);
+                },
+                font: {
+                    size: 11,
+                }
+            },
+            padding: {
+                top: 20,
+                bottom: 20
+            }
+        },
+        x: {
+            grid: {
                 display: false,
             },
-            title: {
-                display: !!title,
-                text: title,
+            ticks: {
+                maxRotation: 0,
+                font: {
+                    size: 11,
+                },
+                padding: 10,
+                autoSkip: false
             },
+            offset: true
         },
-        scales: {
-            y: {
-                title: {
-                    display: !!yLabel,
-                    text: yLabel,
-                },
-                grid: {
-                    display: false,
-                },
-            },
-            x: {
-                title: {
-                    display: !!xLabel,
-                    text: xLabel,
-                },
-                grid: {
-                    display: false,
-                },
-            },
-        },
+    },
+    layout: {
+        padding: {
+            left: 20,
+            right: 20,
+            top: 20,
+            bottom: 20
+        }
     }
+})
+
+const LineChart = ({ xAxisData, yAxisData }: Props) => {
+    const options = createChartOptions()
 
     return (
-        <Line
-            data={{
-                labels: xAxisData,
-                datasets: [
-                    {
-                        backgroundColor: theme.colors.blue100,
-                        borderColor: theme.colors.primary,
-                        data: yAxisData,
-                    },
-                ],
-            }}
-            options={options}
-        />
+        <Box height="400px">
+            <Line
+                data={{
+                    labels: xAxisData,
+                    datasets: [
+                        {
+                            data: yAxisData,
+                            borderColor: '#3182CE',
+                            backgroundColor: 'rgba(66, 153, 225, 0.1)',
+                            borderWidth: 2,
+                            tension: 0.4,
+                            pointRadius: 0,
+                            pointHoverRadius: 4,
+                        },
+                    ],
+                }}
+                options={options}
+            />
+        </Box>
     )
 }
 
