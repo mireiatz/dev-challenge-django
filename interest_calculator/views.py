@@ -45,7 +45,7 @@ def interest_data(request):
             interest_rate=interest_rate
         )
         
-        return JsonResponse({'projections': projections})
+        return JsonResponse(projections)
         
     except json.JSONDecodeError:
         return JsonResponse(
