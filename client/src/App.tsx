@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import './App.css'
 import { ChakraProvider, extendTheme } from '@chakra-ui/react'
-import { Container, VStack } from '@chakra-ui/react'
+import { Container, VStack, Box } from '@chakra-ui/react'
 import DefaultLayout from './components/layouts/Default'
 import LineChart from './components/LineChart'
 import SliderInput from './components/SliderInput'
@@ -86,7 +86,8 @@ function App() {
                             min={0}
                             max={10000}
                             step={100}
-                            unit="$"
+                            unit="£"
+                            unitPosition={0}
                         />
 
                         <SliderInput
@@ -94,9 +95,10 @@ function App() {
                             value={monthlyDeposit}
                             onChange={setMonthlyDeposit}
                             min={0}
-                            max={1000}
-                            step={10}
-                            unit="$"
+                            max={5000}
+                            step={100}
+                            unit="£"
+                            unitPosition={0}
                         />
 
                         <SliderInput
@@ -107,16 +109,22 @@ function App() {
                             max={20}
                             step={0.1}
                             unit="%"
+                            unitPosition={1}
                         />
                     </VStack>
-                    <ProjectionsSummary 
-                        finalAmount={chartData.yAxis[chartData.yAxis.length - 1]} 
-                        numberOfYears={chartData.yAxis.length / 12}
-                    />
-                    <LineChart
-                        xAxisData={chartData.xAxis}
-                        yAxisData={chartData.yAxis}
-                    />
+                    <Box p={4} bg="white" borderRadius="lg" border="1px solid" borderColor="gray.100" boxShadow="sm" mb={6}>
+                        <ProjectionsSummary 
+                            finalAmount={chartData.yAxis[chartData.yAxis.length - 1]} 
+                            numberOfYears={chartData.yAxis.length / 12}
+                            initialAmount={initialAmount}
+                            monthlyDeposit={monthlyDeposit}
+                            interestRate={interestRate}
+                        />
+                        <LineChart
+                            xAxisData={chartData.xAxis}
+                            yAxisData={chartData.yAxis}
+                        />
+                    </Box>
                 </Container>
             </DefaultLayout>
         </ChakraProvider>
