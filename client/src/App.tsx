@@ -8,7 +8,7 @@ import SliderInput from './components/SliderInput'
 import ProjectionsSummary from './components/ProjectionsSummary'
 import theme from './theme'
 import { debounce } from 'lodash'
-import { getFutureDate } from './utils/getFutureDate'
+import { getFutureDate } from './utils/date'
 
 const defaultTheme = extendTheme(theme)
 

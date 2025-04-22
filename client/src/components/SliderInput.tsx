@@ -1,5 +1,5 @@
 import { Box, Text, Slider, SliderTrack, SliderFilledTrack, SliderThumb, Flex, Input } from '@chakra-ui/react'
-import { formatCurrency } from '../utils/formatCurrency'
+import { formatCurrency } from '../utils/format'
 
 interface SliderInputProps {
     label: string
