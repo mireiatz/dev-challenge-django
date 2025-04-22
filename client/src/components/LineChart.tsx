@@ -11,7 +11,7 @@ import {
 import React from 'react'
 import { Line } from 'react-chartjs-2'
 import { Box } from '@chakra-ui/react'
-import { formatCurrency } from '../utils/formatCurrency'
+import { formatCurrency } from '../utils/format'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend)
 

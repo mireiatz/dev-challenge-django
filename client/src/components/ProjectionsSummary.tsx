@@ -1,5 +1,5 @@
 import { Text, Flex, Box, Divider } from '@chakra-ui/react'
-import { formatCurrency } from '../utils/formatCurrency'
+import { formatCurrency } from '../utils/format'
 
 type Props = {
     savings: string
@@ -22,6 +22,7 @@ const ProjectionsSummary = ({
 }: Props) => {
     return (
         <Flex direction="column" mb={4}>
+            {/* Main projected value with timeline */}
             <Flex direction="column">
                 <Box pl={2} borderLeft="4px solid" borderColor="blue.500">
                     <Text fontSize="2xl" fontWeight="bold" color="blue.500">
@@ -31,6 +32,7 @@ const ProjectionsSummary = ({
                         Projected value in {numberOfYears} years
                     </Text>
                 </Box>
+                {/* Earnings and contributions breakdown */}
                 <Flex gap={8} mt={2}>
                     <Box pl={2} borderLeft="4px solid" borderColor="blue.300">
                         <Text fontSize="lg" fontWeight="bold" color="blue.300">
@@ -51,6 +53,7 @@ const ProjectionsSummary = ({
                 </Flex>
             </Flex>
             <Divider my={4} borderColor="gray.200" />
+            {/* Input parameters summary */}
             <Flex justify="center" gap={4} fontSize="xs" color="gray.500">
                 <Box textAlign="center">
                     <Text fontWeight="medium">Initial Amount</Text>
