@@ -20,6 +20,11 @@ function App() {
     const [chartData, setChartData] = useState({
         xAxis: [] as string[],
         yAxis: [] as string[],
+        summary: {
+            savings: '0',
+            earnings: '0',
+            contributions: '0'
+        }
     })
 
     // Fetch projections
@@ -61,6 +66,11 @@ function App() {
                 setChartData({
                     xAxis: monthLabels,
                     yAxis: data.projections.map((item: any) => item.value.toString()),
+                    summary: {
+                        savings: data.summary.savings.toString(),
+                        earnings: data.summary.earnings.toString(),
+                        contributions: data.summary.contributions.toString()
+                    }
                 });
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -77,7 +87,7 @@ function App() {
     return (
         <ChakraProvider theme={defaultTheme}>
             <DefaultLayout>
-                <Container pt={6}>
+                <Container pt={6} pb={12}>
                     <VStack spacing={8} mb={6}>
                         <SliderInput
                             label="Initial Amount"
@@ -114,7 +124,9 @@ function App() {
                     </VStack>
                     <Box p={4} bg="white" borderRadius="lg" border="1px solid" borderColor="gray.100" boxShadow="sm" mb={6}>
                         <ProjectionsSummary 
-                            finalAmount={chartData.yAxis[chartData.yAxis.length - 1]} 
+                            savings={chartData.summary.savings}
+                            earnings={chartData.summary.earnings}
+                            contributions={chartData.summary.contributions}
                             numberOfYears={chartData.yAxis.length / 12}
                             initialAmount={initialAmount}
                             monthlyDeposit={monthlyDeposit}

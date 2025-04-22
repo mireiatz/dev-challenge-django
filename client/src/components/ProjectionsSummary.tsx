@@ -2,7 +2,9 @@ import { Text, Flex, Box, Divider } from '@chakra-ui/react'
 import { formatCurrency } from '../utils/formatCurrency'
 
 type Props = {
-    finalAmount: string
+    savings: string
+    earnings: string
+    contributions: string
     numberOfYears: number
     initialAmount: number
     monthlyDeposit: number
@@ -10,7 +12,9 @@ type Props = {
 }
 
 const ProjectionsSummary = ({ 
-    finalAmount, 
+    savings,
+    earnings,
+    contributions,
     numberOfYears, 
     initialAmount, 
     monthlyDeposit, 
@@ -18,29 +22,48 @@ const ProjectionsSummary = ({
 }: Props) => {
     return (
         <Flex direction="column" mb={4}>
-            <Flex pl={2} borderLeft="4px solid" borderColor="blue.400" direction="column">
-                <Text fontSize="2xl" fontWeight="bold" color="blue.600">
-                    {formatCurrency(finalAmount)}
-                </Text>
-                <Text fontSize="sm" color="gray.600" mb={2}>
-                    Projected value in {numberOfYears} years
-                </Text>
-            </Flex>
-            <Flex pl={2} borderLeft="4px solid" borderColor="blue.300" mt={2} direction="column">
-                <Flex gap={4} fontSize="xs" color="gray.500">
-                    <Box>
-                        <Text fontWeight="medium">Initial Amount</Text>
-                        <Text>{formatCurrency(initialAmount.toString())}</Text>
+            <Flex direction="column">
+                <Box pl={2} borderLeft="4px solid" borderColor="blue.500">
+                    <Text fontSize="2xl" fontWeight="bold" color="blue.500">
+                        {formatCurrency(savings)}
+                    </Text>
+                    <Text fontSize="sm" color="gray.600">
+                        Projected value in {numberOfYears} years
+                    </Text>
+                </Box>
+                <Flex gap={8} mt={2}>
+                    <Box pl={2} borderLeft="4px solid" borderColor="blue.300">
+                        <Text fontSize="lg" fontWeight="bold" color="blue.300">
+                            {formatCurrency(earnings)}
+                        </Text>
+                        <Text fontSize="xs" color="gray.600">
+                            Total earnings
+                        </Text>
                     </Box>
                     <Box>
-                        <Text fontWeight="medium">Monthly Deposit</Text>
-                        <Text>{formatCurrency(monthlyDeposit.toString())}</Text>
-                    </Box>
-                    <Box>
-                        <Text fontWeight="medium">Interest Rate</Text>
-                        <Text>{interestRate}%</Text>
+                        <Text fontSize="lg" fontWeight="bold" color="blue.300">
+                            {formatCurrency(contributions)}
+                        </Text>
+                        <Text fontSize="xs" color="gray.600">
+                            Total contributions
+                        </Text>
                     </Box>
                 </Flex>
+            </Flex>
+            <Divider my={4} borderColor="gray.200" />
+            <Flex justify="center" gap={4} fontSize="xs" color="gray.500">
+                <Box textAlign="center">
+                    <Text fontWeight="medium">Initial Amount</Text>
+                    <Text>{formatCurrency(initialAmount.toString())}</Text>
+                </Box>
+                <Box borderLeft="1px solid" borderColor="gray.200" pl={4} textAlign="center">
+                    <Text fontWeight="medium">Monthly Deposit</Text>
+                    <Text>{formatCurrency(monthlyDeposit.toString())}</Text>
+                </Box>
+                <Box borderLeft="1px solid" borderColor="gray.200" pl={4} textAlign="center">
+                    <Text fontWeight="medium">Interest Rate</Text>
+                    <Text>{interestRate}%</Text>
+                </Box>
             </Flex>
         </Flex>
     )
