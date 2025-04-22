@@ -39,13 +39,13 @@ def interest_data(request):
             )
         
         # Calculate projections
-        projections = calculate_projections(
+        response = generate_projection_response(
             initial_amount=initial_amount,
             monthly_deposit=monthly_deposit,
             interest_rate=interest_rate
         )
         
-        return JsonResponse(projections)
+        return JsonResponse(response)
         
     except json.JSONDecodeError:
         return JsonResponse(
