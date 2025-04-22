@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import './App.css'
 import { ChakraProvider, extendTheme } from '@chakra-ui/react'
-import { Container, Slider, SliderTrack, SliderFilledTrack, SliderThumb, VStack, Text, Box } from '@chakra-ui/react'
+import { Container, VStack } from '@chakra-ui/react'
 import DefaultLayout from './components/layouts/Default'
 import LineChart from './components/LineChart'
+import SliderInput from './components/SliderInput'
 import theme from './theme'
 import { debounce } from 'lodash'
 
@@ -71,59 +72,36 @@ function App() {
         <ChakraProvider theme={defaultTheme}>
             <DefaultLayout>
                 <Container pt={6}>
-                    
                     <VStack spacing={8} mb={6}>
-                        
-                        <Box width="100%">
-                            <Text mb={2}>Initial Amount: ${initialAmount}</Text>
-                            <Slider
-                                aria-label="initial-amount"
-                                value={initialAmount}
-                                min={0}
-                                max={10000}
-                                step={100}
-                                onChange={setInitialAmount}
-                            >
-                                <SliderTrack>
-                                    <SliderFilledTrack />
-                                </SliderTrack>
-                                <SliderThumb />
-                            </Slider>
-                        </Box>
+                        <SliderInput
+                            label="Initial Amount"
+                            value={initialAmount}
+                            onChange={setInitialAmount}
+                            min={0}
+                            max={10000}
+                            step={100}
+                            unit="$"
+                        />
 
-                        <Box width="100%">
-                            <Text mb={2}>Monthly Deposit: ${monthlyDeposit}</Text>
-                            <Slider
-                                aria-label="monthly-deposit"
-                                value={monthlyDeposit}
-                                min={0}
-                                max={1000}
-                                step={10}
-                                onChange={setMonthlyDeposit}
-                            >
-                                <SliderTrack>
-                                    <SliderFilledTrack />
-                                </SliderTrack>
-                                <SliderThumb />
-                            </Slider>
-                        </Box>
+                        <SliderInput
+                            label="Monthly Deposit"
+                            value={monthlyDeposit}
+                            onChange={setMonthlyDeposit}
+                            min={0}
+                            max={1000}
+                            step={10}
+                            unit="$"
+                        />
 
-                        <Box width="100%">
-                            <Text mb={2}>Interest Rate: {interestRate}%</Text>
-                            <Slider
-                                aria-label="interest-rate"
-                                value={interestRate}
-                                min={0}
-                                max={20}
-                                step={0.1}
-                                onChange={setInterestRate}
-                            >
-                                <SliderTrack>
-                                    <SliderFilledTrack />
-                                </SliderTrack>
-                                <SliderThumb />
-                            </Slider>
-                        </Box>
+                        <SliderInput
+                            label="Interest Rate"
+                            value={interestRate}
+                            onChange={setInterestRate}
+                            min={0}
+                            max={20}
+                            step={0.1}
+                            unit="%"
+                        />
                     </VStack>
 
                     <LineChart
