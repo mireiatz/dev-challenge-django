@@ -10,9 +10,11 @@ export const formatCurrency = (value: string | number | undefined | null): strin
     }
     
     if (num >= 1000000) {
-        return `£${(num / 1000000).toFixed(1)}M`
+        const millions = num / 1000000
+        return `£${millions % 1 === 0 ? millions.toFixed(0) : millions.toFixed(1)}M`
     } else if (num >= 1000) {
-        return `£${(num / 1000).toFixed(1)}K`
+        const thousands = num / 1000
+        return `£${thousands % 1 === 0 ? thousands.toFixed(0) : thousands.toFixed(1)}K`
     }
-    return `£${num.toFixed(2)}`
+    return `£${num % 1 === 0 ? num.toFixed(0) : num.toFixed(2)}`
 } 
