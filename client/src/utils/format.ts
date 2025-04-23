@@ -1,4 +1,4 @@
-// Format a numeric value as a currency string
+// Format number as currency with K/M suffixes
 export const formatCurrency = (value: string | number | undefined | null): string => {
     if (value === undefined || value === null) {
         return '£0'
@@ -20,7 +20,7 @@ export const formatCurrency = (value: string | number | undefined | null): strin
     return `£${num % 1 === 0 ? num.toFixed(0) : num.toFixed(2)}`
 }
 
-// Format a numeric value based on the unit and its position
+// Format number with optional unit prefix/suffix
 export const formatValue = (value: number, unit?: string, unitPosition: number = 1): string => {
     if (unit === '£') {
         return formatCurrency(value)

@@ -23,7 +23,7 @@ type Props = {
     yLabel?: string
 }
 
-// Create chart options for styling
+// Chart styling configuration
 const createChartOptions = () => ({
     responsive: true,
     maintainAspectRatio: false,
