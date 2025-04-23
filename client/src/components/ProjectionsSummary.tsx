@@ -1,4 +1,4 @@
-import { Text, Flex, Box, Divider } from '@chakra-ui/react'
+import { Text, Flex, Box } from '@chakra-ui/react'
 import { formatCurrency } from '../utils/format'
 
 type Props = {
@@ -6,19 +6,13 @@ type Props = {
     earnings: string
     contributions: string
     numberOfYears: number
-    initialAmount: number
-    monthlyDeposit: number
-    interestRate: number
 }
 
 const ProjectionsSummary = ({ 
     savings,
     earnings,
     contributions,
-    numberOfYears, 
-    initialAmount, 
-    monthlyDeposit, 
-    interestRate 
+    numberOfYears
 }: Props) => {
     return (
         <Flex direction="column" mb={4}>
@@ -51,22 +45,6 @@ const ProjectionsSummary = ({
                         </Text>
                     </Box>
                 </Flex>
-            </Flex>
-            <Divider my={4} borderColor="gray.200" />
-            {/* Input parameters summary */}
-            <Flex justify="center" gap={4} fontSize="xs" color="gray.500">
-                <Box textAlign="center">
-                    <Text fontWeight="medium">Initial Amount</Text>
-                    <Text>{formatCurrency(initialAmount.toString())}</Text>
-                </Box>
-                <Box borderLeft="1px solid" borderColor="gray.200" pl={4} textAlign="center">
-                    <Text fontWeight="medium">Monthly Deposit</Text>
-                    <Text>{formatCurrency(monthlyDeposit.toString())}</Text>
-                </Box>
-                <Box borderLeft="1px solid" borderColor="gray.200" pl={4} textAlign="center">
-                    <Text fontWeight="medium">Interest Rate</Text>
-                    <Text>{interestRate}%</Text>
-                </Box>
             </Flex>
         </Flex>
     )

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import './App.css'
 import { ChakraProvider, extendTheme } from '@chakra-ui/react'
-import { Container, VStack, Box } from '@chakra-ui/react'
+import { Container, VStack, Box, Flex } from '@chakra-ui/react'
 import DefaultLayout from './components/layouts/Default'
 import LineChart from './components/LineChart'
 import SliderInput from './components/SliderInput'
@@ -15,7 +15,7 @@ const defaultTheme = extendTheme(theme)
 function App() {
     // State for user inputs and chart data
     const [initialAmount, setInitialAmount] = useState(1000)
-    const [monthlyDeposit, setMonthlyDeposit] = useState(100) 
+    const [monthlyDeposit, setMonthlyDeposit] = useState(1000) 
     const [interestRate, setInterestRate] = useState(5) 
     const [chartData, setChartData] = useState({
         xAxis: [] as string[],
@@ -87,56 +87,59 @@ function App() {
     return (
         <ChakraProvider theme={defaultTheme}>
             <DefaultLayout>
-                <Container pt={6} pb={12}>
-                    <VStack spacing={8} mb={6}>
-                        <SliderInput
-                            label="Initial Amount"
-                            value={initialAmount}
-                            onChange={setInitialAmount}
-                            min={0}
-                            max={10000}
-                            step={100}
-                            unit="£"
-                            unitPosition={0}
-                        />
+                <Container maxW="container.xl" pt={6} pb={12}>
+                    <Flex gap={8} align="flex-start">
+                        <Box width="400px">
+                            <VStack spacing={4}>
+                                <SliderInput
+                                    label="Initial Amount"
+                                    value={initialAmount}
+                                    onChange={setInitialAmount}
+                                    min={0}
+                                    max={10000}
+                                    step={100}
+                                    unit="£"
+                                    unitPosition={0}
+                                />
 
-                        <SliderInput
-                            label="Monthly Deposit"
-                            value={monthlyDeposit}
-                            onChange={setMonthlyDeposit}
-                            min={0}
-                            max={5000}
-                            step={100}
-                            unit="£"
-                            unitPosition={0}
-                        />
+                                <SliderInput
+                                    label="Monthly Deposit"
+                                    value={monthlyDeposit}
+                                    onChange={setMonthlyDeposit}
+                                    min={0}
+                                    max={5000}
+                                    step={100}
+                                    unit="£"
+                                    unitPosition={0}
+                                />
 
-                        <SliderInput
-                            label="Interest Rate"
-                            value={interestRate}
-                            onChange={setInterestRate}
-                            min={0}
-                            max={20}
-                            step={0.1}
-                            unit="%"
-                            unitPosition={1}
-                        />
-                    </VStack>
-                    <Box p={4} bg="white" borderRadius="lg" border="1px solid" borderColor="gray.100" boxShadow="sm" mb={6}>
-                        <ProjectionsSummary 
-                            savings={chartData.summary.savings}
-                            earnings={chartData.summary.earnings}
-                            contributions={chartData.summary.contributions}
-                            numberOfYears={chartData.yAxis.length / 12}
-                            initialAmount={initialAmount}
-                            monthlyDeposit={monthlyDeposit}
-                            interestRate={interestRate}
-                        />
-                        <LineChart
-                            xAxisData={chartData.xAxis}
-                            yAxisData={chartData.yAxis}
-                        />
-                    </Box>
+                                <SliderInput
+                                    label="Interest Rate"
+                                    value={interestRate}
+                                    onChange={setInterestRate}
+                                    min={0}
+                                    max={20}
+                                    step={0.1}
+                                    unit="%"
+                                    unitPosition={1}
+                                />
+                            </VStack>
+                        </Box>
+                        <Box flex={1} minW="675px">
+                            <Box p={4} bg="white" borderRadius="lg" border="1px solid" borderColor="gray.100" boxShadow="sm">
+                                <ProjectionsSummary 
+                                    savings={chartData.summary.savings}
+                                    earnings={chartData.summary.earnings}
+                                    contributions={chartData.summary.contributions}
+                                    numberOfYears={chartData.yAxis.length / 12}
+                                />
+                                <LineChart
+                                    xAxisData={chartData.xAxis}
+                                    yAxisData={chartData.yAxis}
+                                />
+                            </Box>
+                        </Box>
+                    </Flex>
                 </Container>
             </DefaultLayout>
         </ChakraProvider>
