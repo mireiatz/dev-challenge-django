@@ -8,12 +8,7 @@ type Props = {
     numberOfYears: number
 }
 
-const ProjectionsSummary = ({ 
-    savings,
-    earnings,
-    contributions,
-    numberOfYears
-}: Props) => {
+const ProjectionsSummary = ({ savings, earnings, contributions, numberOfYears }: Props) => {
     return (
         <Flex direction="column" mb={4}>
             {/* Main projected value with timeline */}
@@ -50,4 +45,4 @@ const ProjectionsSummary = ({
     )
 }
 
-export default ProjectionsSummary 
+export default ProjectionsSummary

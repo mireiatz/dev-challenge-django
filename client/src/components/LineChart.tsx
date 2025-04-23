@@ -8,7 +8,6 @@ import {
     Tooltip,
     Legend,
 } from 'chart.js'
-import React from 'react'
 import { Line } from 'react-chartjs-2'
 import { Box } from '@chakra-ui/react'
 import { formatCurrency } from '../utils/format'
@@ -36,9 +35,9 @@ const createChartOptions = () => ({
         },
         tooltip: {
             callbacks: {
-                label: (context: any) => formatCurrency(context.raw)
-            }
-        }
+                label: (context: any) => formatCurrency(context.raw),
+            },
+        },
     },
     scales: {
         y: {
@@ -48,17 +47,17 @@ const createChartOptions = () => ({
             },
             ticks: {
                 callback: (value: any) => {
-                    if (value === 0) return '';
-                    return formatCurrency(value);
+                    if (value === 0) return ''
+                    return formatCurrency(value)
                 },
                 font: {
                     size: 11,
-                }
+                },
             },
             padding: {
                 top: 20,
-                bottom: 20
-            }
+                bottom: 20,
+            },
         },
         x: {
             grid: {
@@ -70,9 +69,9 @@ const createChartOptions = () => ({
                     size: 11,
                 },
                 padding: 10,
-                autoSkip: false
+                autoSkip: false,
             },
-            offset: true
+            offset: true,
         },
     },
     layout: {
@@ -80,9 +79,9 @@ const createChartOptions = () => ({
             left: 20,
             right: 20,
             top: 20,
-            bottom: 20
-        }
-    }
+            bottom: 20,
+        },
+    },
 })
 
 const LineChart = ({ xAxisData, yAxisData }: Props) => {

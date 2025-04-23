@@ -3,13 +3,13 @@ export const formatCurrency = (value: string | number | undefined | null): strin
     if (value === undefined || value === null) {
         return '£0'
     }
-    
+
     const num = typeof value === 'string' ? parseFloat(value) : value
-    
+
     if (isNaN(num)) {
         return '£0'
     }
-    
+
     if (num >= 1000000) {
         const millions = num / 1000000
         return `£${millions % 1 === 0 ? millions.toFixed(0) : millions.toFixed(1)}M`
@@ -26,4 +26,4 @@ export const formatValue = (value: number, unit?: string, unitPosition: number =
         return formatCurrency(value)
     }
     return unitPosition === 0 ? `${unit}${value}` : `${value}${unit}`
-} 
+}

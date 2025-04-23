@@ -1,4 +1,13 @@
-import { Box, Text, Slider, SliderTrack, SliderFilledTrack, SliderThumb, Flex, Input } from '@chakra-ui/react'
+import {
+    Box,
+    Text,
+    Slider,
+    SliderTrack,
+    SliderFilledTrack,
+    SliderThumb,
+    Flex,
+    Input,
+} from '@chakra-ui/react'
 import { formatCurrency } from '../utils/format'
 
 interface SliderInputProps {
@@ -12,15 +21,15 @@ interface SliderInputProps {
     unitPosition?: 0 | 1
 }
 
-const SliderInput = ({ 
-    label, 
-    value, 
-    onChange, 
-    min, 
-    max, 
-    step, 
+const SliderInput = ({
+    label,
+    value,
+    onChange,
+    min,
+    max,
+    step,
     unit,
-    unitPosition = 1
+    unitPosition = 1,
 }: SliderInputProps) => {
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newValue = parseFloat(e.target.value)
@@ -37,7 +46,15 @@ const SliderInput = ({
     }
 
     return (
-        <Box width="100%" p={3} bg="white" borderRadius="lg" border="1px solid" borderColor="gray.100" boxShadow="sm">
+        <Box
+            width="100%"
+            p={3}
+            bg="white"
+            borderRadius="lg"
+            border="1px solid"
+            borderColor="gray.100"
+            boxShadow="sm"
+        >
             <Flex direction="column" gap={2}>
                 <Flex justify="space-between" align="center">
                     <Text fontSize="sm" fontWeight="medium" color="gray.600">
@@ -72,7 +89,7 @@ const SliderInput = ({
                         <SliderTrack bg="gray.100" h={3} borderRadius="full">
                             <SliderFilledTrack bg="blue.400" borderRadius="full" />
                         </SliderTrack>
-                        <SliderThumb 
+                        <SliderThumb
                             boxSize={6}
                             bg="white"
                             border="2px solid"
@@ -95,4 +112,4 @@ const SliderInput = ({
     )
 }
 
-export default SliderInput 
+export default SliderInput

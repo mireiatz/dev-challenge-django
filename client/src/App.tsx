@@ -15,16 +15,16 @@ const defaultTheme = extendTheme(theme)
 function App() {
     // State for user inputs and chart data
     const [initialAmount, setInitialAmount] = useState(1000)
-    const [monthlyDeposit, setMonthlyDeposit] = useState(1000) 
-    const [interestRate, setInterestRate] = useState(5) 
+    const [monthlyDeposit, setMonthlyDeposit] = useState(1000)
+    const [interestRate, setInterestRate] = useState(5)
     const [chartData, setChartData] = useState({
         xAxis: [] as string[],
         yAxis: [] as string[],
         summary: {
             savings: '0',
             earnings: '0',
-            contributions: '0'
-        }
+            contributions: '0',
+        },
     })
 
     // Fetch projections
@@ -36,31 +36,31 @@ function App() {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Accept': 'application/json',
+                        Accept: 'application/json',
                     },
                     body: JSON.stringify({
                         initial_amount: amount,
                         monthly_deposit: deposit,
                         interest_rate: rate,
                     }),
-                });
+                })
 
                 if (!response.ok) {
-                    const errorText = await response.text();
-                    throw new Error(`HTTP error! status: ${response.status}, body: ${errorText}`);
+                    const errorText = await response.text()
+                    throw new Error(`HTTP error! status: ${response.status}, body: ${errorText}`)
                 }
 
-                const data = await response.json();
+                const data = await response.json()
 
-                const projectionsLength = data.projections.length;
-                const amountOfYears = projectionsLength / 12;
+                const projectionsLength = data.projections.length
+                const amountOfYears = projectionsLength / 12
 
                 // Create labels for the x-axis - show Today and end date
                 const monthLabels = Array.from({ length: projectionsLength }, (_, i) => {
-                    if (i === 0) return 'Today';
-                    if (i === projectionsLength - 1) return getFutureDate(amountOfYears);
-                    return '';
-                });
+                    if (i === 0) return 'Today'
+                    if (i === projectionsLength - 1) return getFutureDate(amountOfYears)
+                    return ''
+                })
 
                 // Update chart data with all monthly projections
                 setChartData({
@@ -69,20 +69,20 @@ function App() {
                     summary: {
                         savings: data.summary.savings.toString(),
                         earnings: data.summary.earnings.toString(),
-                        contributions: data.summary.contributions.toString()
-                    }
-                });
+                        contributions: data.summary.contributions.toString(),
+                    },
+                })
             } catch (error) {
-                console.error('Error fetching data:', error);
+                console.error('Error fetching data:', error)
             }
         }, 300),
-        []
-    );
+        [],
+    )
 
     // Fetch new projections whenever any input value changes
     useEffect(() => {
-        fetchProjections(initialAmount, monthlyDeposit, interestRate);
-    }, [initialAmount, monthlyDeposit, interestRate, fetchProjections]);
+        fetchProjections(initialAmount, monthlyDeposit, interestRate)
+    }, [initialAmount, monthlyDeposit, interestRate, fetchProjections])
 
     return (
         <ChakraProvider theme={defaultTheme}>
@@ -126,8 +126,15 @@ function App() {
                             </VStack>
                         </Box>
                         <Box flex={1} minW="675px">
-                            <Box p={4} bg="white" borderRadius="lg" border="1px solid" borderColor="gray.100" boxShadow="sm">
-                                <ProjectionsSummary 
+                            <Box
+                                p={4}
+                                bg="white"
+                                borderRadius="lg"
+                                border="1px solid"
+                                borderColor="gray.100"
+                                boxShadow="sm"
+                            >
+                                <ProjectionsSummary
                                     savings={chartData.summary.savings}
                                     earnings={chartData.summary.earnings}
                                     contributions={chartData.summary.contributions}
