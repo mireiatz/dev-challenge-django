@@ -44,3 +44,27 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+## Challenge Wrap-Up
+
+### How I approached the challenge
+I started by planning the overall structure with the goal of building a clean, modular, maintainable, and scalable solution. I began with the Django backend, implementing the logic to calculate and return the projection data using the existing endpoint.
+
+Once the API was functional, I moved on to the frontend using React and Chakra UI, focusing on a UX that felt simple, responsive, and user-friendly. I took inspiration from the Moneybox app and used a debounced input pattern to ensure the chart updated live without compromising performance.
+
+While building the frontend, I had the idea to display some high-level summary metrics above the chart. This led me to refactor the backend response to include additional summary data.
+
+### What I like about my solution
+
+- The smooth experience provided by the sliders
+- The clean UI that presents key information at a glance
+- The reusability and expandability of the backend API structure
+
+### What I’d improve or develop next
+From a development perspective:
+- Add proper unit tests for the backend calculation logic
+- Refactor the frontend to extract the current layout from `App.tsx` into a dedicated page/component
+
+From a feature perspective:
+- Allow users to define a custom number of years for projection
+- Add more interactivity to the chart such as more informative tooltips on hover
